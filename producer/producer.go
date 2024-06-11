@@ -14,13 +14,14 @@ type Comment struct {
 
 func main() {
 app := fiber.New()
+
 fi := app.Group("/api/v1")
 fi.Post("/comments",createComment)
 app.Listen(":3000")
 }
 
 func createComment(ctx *fiber.Ctx) error {
-	var cmt *Comment
+	var cmt  = new(Comment)
 	err := ctx.BodyParser(cmt)
 	if err != nil {
 		log.Println("Error while parsing request ",err)
@@ -90,4 +91,6 @@ func ConnectProducer(url []string) (sarama.SyncProducer,error) {
 	}
 
 	return producer,nil
+
+
 }
